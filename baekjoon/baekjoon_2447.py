@@ -25,4 +25,3 @@ for h in range(N):
         else:
             print(pattern[h%3], end="")
     print()
-
