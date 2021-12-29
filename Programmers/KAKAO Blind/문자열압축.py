@@ -1,5 +1,3 @@
-from collections import Counter
-
 def convert(arr):
     s = ""
     count = 1
