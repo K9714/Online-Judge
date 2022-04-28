@@ -20,7 +20,7 @@
 static void Main(string[] args)
 {
     // 최초 주어지는 단어 배열
-    string input = "차량용스마트폰 가정집스마트폰 기업용스마트폰";
+    string input = "A4 강아지고양이 장난감 고양이 a4";
 
     // 단어를 넣을 딕셔너리 생성
     Dictionary<string, int> dict = new Dictionary<string, int>();
@@ -37,18 +37,22 @@ static void Main(string[] args)
             {
                 // 딕셔너리가 비어있지 않은 경우 중복 단어 검사 실행
                 // 딕셔너리 키 전개
+                string checkWord = "";
+                bool check = false;
+                string newWord = word;
                 foreach (string key in dict.Keys)
                 {
                     // 첫 글자부터 2글자+ 형태로 분리하여 순서대로 딕셔너리 키에 해당하는 글자가 있는지 검사
-                    string checkWord = "";
-                    bool check = false;
-                    for (int i = 0; i < word.Length - 2; i++)
-                    {   
+                    Console.WriteLine($"[{word} in {key}]");
+                    for (int i = 0; i <= word.Length - 2; i++)
+                    {
+                        check = false;
                         // 길이를 늘려가며 검사
                         for (int length = 2; length <= word.Length - i; length++)
                         {
                             // word 
                             checkWord = word.Substring(i, length);
+                            Console.WriteLine($"{checkWord}");
                             if (!key.Contains(checkWord))
                             {
                                 if (length > 2)
@@ -68,20 +72,22 @@ static void Main(string[] args)
                             break;
                     }
                     // 포함하는 단어 제거한 단어
-                    string newWord;
                     if (checkWord.Length > 0)
+                    {
                         newWord = word.Replace(checkWord, "");
-                    else
-                       newWord = word;
-                    if (dict.ContainsKey(newWord))
-                    {
-                        dict[newWord] += 1;
+                        break;
                     }
                     else
-                    {
-                        dict.Add(newWord, 1);
-                    }
-                    break;
+                        newWord = word;
+                                
+                }
+                if (dict.ContainsKey(newWord))
+                {
+                    dict[newWord] += 1;
+                }
+                else if (newWord.Length > 0)
+                {
+                    dict.Add(newWord, 1);
                 }
             }
             else
@@ -101,4 +107,5 @@ static void Main(string[] args)
     {
         Console.Write($"{kv.Key} ");
     }
+    Console.ReadLine();
 }
