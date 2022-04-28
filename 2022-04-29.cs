@@ -52,7 +52,9 @@ static void Main(string[] args)
                             if (!key.Contains(checkWord))
                             {
                                 if (length > 2)
-                                    checkWord = word.Substring(i, length - 1);                           
+                                    checkWord = word.Substring(i, length - 1);
+                                else
+                                    checkWord = "";
                                 break;
                             }
                             else
@@ -66,7 +68,11 @@ static void Main(string[] args)
                             break;
                     }
                     // 포함하는 단어 제거한 단어
-                    string newWord = word.Replace(checkWord, "");
+                    string newWord;
+                    if (checkWord.Length > 0)
+                        newWord = word.Replace(checkWord, "");
+                    else
+                       newWord = word;
                     if (dict.ContainsKey(newWord))
                     {
                         dict[newWord] += 1;
